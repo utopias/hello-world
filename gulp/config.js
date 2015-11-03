@@ -1,9 +1,5 @@
 var path = require('path');
-var moment = require('moment');
 var shell = require('shelljs');
-
-var now = moment();
-
 var validEnvironments = {
   local: 'local',
   loc: 'local',
@@ -16,8 +12,23 @@ var validEnvironments = {
 
 var cfg = {
   env: validEnvironments[process.env.NODE_ENV || ''] || validEnvironments.local,
+  stylint: {
+    src: [
+      path.join(__dirname, '../app/client/**/*.styl')
+    ]
+  },
+  eslint: {
+    src: [
+      path.join(__dirname, '../app/client/**/*.js'),
+      path.join(__dirname, '../app/server/**/*.js'),
+      path.join(__dirname, '../gulp/**/*.js'),
+      path.join(__dirname, '../test/**/*.js'),
+      path.join('!' + __dirname, '../app/client/statics/**/*.js'),
+      path.join('!' + __dirname, '../**/*.min.js')
+    ]
+  },
   nodemon: {
-    script: path.join(__dirname, '../server/app.js'),
+    script: path.join(__dirname, '..', process.env.npm_package_main),
     ext: 'js',
     ignore: [
       path.join(__dirname, '../gulp/*.js')

@@ -2,7 +2,7 @@ var path = require('path');
 var fs = require('fs');
 var shell = require('shelljs');
 
-module.exports = function(gulp, plugins, cfg) {
+module.exports = function(gulp, plugins, cfg) { // eslint-disable-line no-unused-vars
   gulp.task('git-info', gitInfo);
 
   function gitInfo() {
