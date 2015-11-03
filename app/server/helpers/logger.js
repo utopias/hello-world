@@ -6,14 +6,14 @@ var config = require('./config');
 module.exports = function() {
   var streams = [];
 
-  if(config.get('BUNYAN_LOGLEVEL') !== 'OFF') {
+  if (config.get('BUNYAN_LOGLEVEL') !== 'OFF') {
     streams.push({
       stream: process.stdout,
       level: config.get('BUNYAN_LOGLEVEL')
     });
   }
 
-  if(config.get('LOGGLY_TOKEN') && config.get('LOGGLY_SUBDOMAIN')) {
+  if (config.get('LOGGLY_TOKEN') && config.get('LOGGLY_SUBDOMAIN')) {
     streams.push({
       type: 'raw',
       level: config.get('LOGGLY_LOGLEVEL'),

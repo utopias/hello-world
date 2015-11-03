@@ -26,25 +26,23 @@ var validEnvironments = {
 
 var envSettings = parseEnvironmentVars(envKeys);
 
-var version = '0.0.0';
-
 cfg.use('memory');
 
 cfg.env(envSettings.env);
 
-if(fs.existsSync(packageJson)) {
+if (fs.existsSync(packageJson)) {
   cfg.set('pkgJson', JSON.parse(fs.readFileSync(packageJson, 'utf-8')));
 
-  if(!cfg.get('npm_package_version')) {
+  if (!cfg.get('npm_package_version')) {
     cfg.set('npm_package_version', cfg.get('pkgJson:version'));
   }
 
-  if(!cfg.get('npm_package_name')) {
+  if (!cfg.get('npm_package_name')) {
     cfg.set('npm_package_name', cfg.get('pkgJson:name'));
   }
 }
 
-if(fs.existsSync(commitFile)) {
+if (fs.existsSync(commitFile)) {
   cfg.set('git', JSON.parse(fs.readFileSync(commitFile, 'utf-8')));
 }
 
@@ -59,7 +57,6 @@ module.exports = cfg;
 
 // Parse the environments array and give me a workable object back
 function parseEnvironmentVars(keys) {
-
   var data = {
     env: [],
     defaults: {}
@@ -68,7 +65,7 @@ function parseEnvironmentVars(keys) {
   _.each(keys, function(key) {
     var name = key;
 
-    if(_.isObject(key)) {
+    if (_.isObject(key)) {
       name = _.keys(key)[0];
       data.defaults[name] = _.values(key)[0];
     }

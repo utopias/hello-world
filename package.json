@@ -54,7 +54,6 @@
     "gulp-sequence": "^0",
     "gulp-stylint": "^3",
     "gulp-util": "^3",
-    "lodash": "^3",
     "moment": "^2",
     "pre-commit": "^1",
     "shelljs": "^0"
