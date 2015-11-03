@@ -1,7 +1,5 @@
 var path = require('path');
 var shell = require('shelljs');
-var packageJson = require('../package.json');
-
 var validEnvironments = {
   local: 'local',
   loc: 'local',
@@ -30,7 +28,7 @@ var cfg = {
     ]
   },
   nodemon: {
-    script: path.join(__dirname, '..', packageJson.main),
+    script: path.join(__dirname, '..', process.env.npm_package_main),
     ext: 'js',
     ignore: [
       path.join(__dirname, '../gulp/*.js')
