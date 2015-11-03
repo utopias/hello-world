@@ -11,9 +11,12 @@
     "lint": "gulp lint",
     "start": "node $npm_package_main"
   },
-  "precommit" : [
-    "gulp lint"
-  ],
+  "precommit": {
+    "silent": false,
+    "run": [
+      "lint"
+    ]
+  },
   "config": {
     "port": "80",
     "host": "0.0.0.0"
@@ -51,7 +54,7 @@
     "gulp-util": "^3",
     "lodash": "^3",
     "moment": "^2",
-    "precommit": "^1",
+    "pre-commit": "^1",
     "shelljs": "^0"
   }
 }
