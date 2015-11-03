@@ -9,6 +9,7 @@
     "clean": "rm -rf node_modules/ dist/ coverage/ npm-debug.log .git.json",
     "dev": "BUNYAN_LOGLEVEL=debug npm start | bunyan",
     "gulp": "gulp",
+    "lint": "gulp lint",
     "start": "node $npm_package_main"
   },
   "engines": {
@@ -37,10 +38,16 @@
     "nconf": "^0"
   },
   "devDependencies": {
+    "eslint": "^1",
     "gulp": "^3",
+    "gulp-debug": "^2",
+    "gulp-eslint": "^1",
     "gulp-load-plugins": "^1",
     "gulp-nodemon": "^2",
     "gulp-sequence": "^0",
+    "gulp-stylint": "^3",
+    "gulp-util": "^3",
+    "lodash": "^3",
     "moment": "^2",
     "shelljs": "^0"
   }
