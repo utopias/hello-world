@@ -36,7 +36,10 @@
     "morgan": "^1"
   },
   "devDependencies": {
+    "eslint": "^1.8.0",
     "gulp": "^3",
+    "gulp-debug": "^2.1.2",
+    "gulp-eslint": "^1.0.0",
     "gulp-load-plugins": "^1",
     "gulp-nodemon": "^2",
     "gulp-sequence": "^0.4",
