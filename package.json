@@ -4,15 +4,12 @@
   "version": "0.0.1",
   "private": false,
   "preferGlobal": false,
-  "main": "./server/app.js",
+  "main": "./app/server/app.js",
   "scripts": {
-    "start": "node $npm_package_main",
+    "clean": "rm -rf node_modules/ dist/ coverage/ npm-debug.log .git.json",
+    "dev": "BUNYAN_LOGLEVEL=debug npm start | bunyan",
     "gulp": "gulp",
-    "clean": "rm -rf node_modules/ dist/ coverage/ npm-debug.log .git.json"
-  },
-  "config": {
-    "port": "80",
-    "host": "0.0.0.0"
+    "start": "node $npm_package_main"
   },
   "engines": {
     "node": ">=4.2"
@@ -31,16 +28,20 @@
   },
   "dependencies": {
     "body-parser": "^1",
+    "bunyan": "^1",
+    "bunyan-loggly": "^0",
     "express": "^4",
     "jade": "^1",
-    "morgan": "^1"
+    "lodash": "^3",
+    "morgan": "^1",
+    "nconf": "^0"
   },
   "devDependencies": {
     "gulp": "^3",
     "gulp-load-plugins": "^1",
     "gulp-nodemon": "^2",
-    "gulp-sequence": "^0.4",
+    "gulp-sequence": "^0",
     "moment": "^2",
-    "shelljs": "^0.5"
+    "shelljs": "^0"
   }
 }
