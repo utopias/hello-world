@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "private": false,
   "preferGlobal": false,
-  "main": "./server/app.js",
+  "main": "./app/server/app.js",
   "scripts": {
     "start": "node $npm_package_main",
     "gulp": "gulp",
