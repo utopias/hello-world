@@ -1,20 +1,21 @@
-
 {
   "name": "hello-world",
   "description": "Simple app to say hello!",
   "version": "0.0.1",
   "private": false,
   "preferGlobal": false,
-  "main": "server/app",
+  "main": "./server/app.js",
   "scripts": {
-    "start": "node ./app/server/app"
+    "start": "node $npm_package_main",
+    "gulp": "gulp",
+    "clean": "rm -rf node_modules/ dist/ coverage/ npm-debug.log .git.json"
   },
-  "config":{
+  "config": {
     "port": "80",
-    "host": "localhost"
+    "host": "0.0.0.0"
   },
   "engines": {
-    "node": ">=4.2.0"
+    "node": ">=4.2"
   },
   "keywords": [
     "helloworld",
@@ -29,9 +30,17 @@
     "url": "https://github.com/utopias/hello-world/issues"
   },
   "dependencies": {
-    "body-parser": "^1.0.0",
-    "express": "^4.0.0",
-    "jade": "^1.0.0",
-    "morgan": "^1.0.0"
+    "body-parser": "^1",
+    "express": "^4",
+    "jade": "^1",
+    "morgan": "^1"
+  },
+  "devDependencies": {
+    "gulp": "^3",
+    "gulp-load-plugins": "^1",
+    "gulp-nodemon": "^2",
+    "gulp-sequence": "^0.4",
+    "moment": "^2",
+    "shelljs": "^0.5"
   }
 }
