@@ -6,11 +6,14 @@
   "preferGlobal": false,
   "main": "./app/server/app.js",
   "scripts": {
-    "start": "node $npm_package_main",
+    "clean": "rm -rf node_modules/ dist/ coverage/ npm-debug.log .git.json",
     "gulp": "gulp",
     "lint": "gulp lint",
-    "clean": "rm -rf node_modules/ dist/ coverage/ npm-debug.log .git.json"
+    "start": "node $npm_package_main"
   },
+  "precommit" : [
+    "gulp lint"
+  ],
   "config": {
     "port": "80",
     "host": "0.0.0.0"
@@ -48,6 +51,7 @@
     "gulp-util": "^3",
     "lodash": "^3",
     "moment": "^2",
+    "precommit": "^1",
     "shelljs": "^0"
   }
 }
