@@ -14,7 +14,6 @@ module.exports = function(gulp, plugins, cfg) {
 
     return gulp
       .src(cfg.stylint.src)
-      .pipe(plugins.debug())
       .pipe(plugins.stylint(cfg.stylint.options, logOutput))
       .on('end', function() {
         formatStylintingResults(summary);
