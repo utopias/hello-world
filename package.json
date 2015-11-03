@@ -1,0 +1,37 @@
+
+{
+  "name": "hello-world",
+  "description": "Simple app to say hello!",
+  "version": "0.0.1",
+  "private": false,
+  "preferGlobal": false,
+  "main": "server/app",
+  "scripts": {
+    "start": "node ./server/app"
+  },
+  "config":{
+    "port": "80",
+    "host": "localhost"
+  },
+  "engines": {
+    "node": ">=4.2.0"
+  },
+  "keywords": [
+    "helloworld",
+    "NodeJs",
+    "ExpressJs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/utopias/hello-world"
+  },
+  "bugs": {
+    "url": "https://github.com/utopias/hello-world/issues"
+  },
+  "dependencies": {
+    "body-parser": "^1.0.0",
+    "express": "^4.0.0",
+    "jade": "^1.0.0",
+    "morgan": "^1.0.0"
+  }
+}
