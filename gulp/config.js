@@ -13,6 +13,11 @@ var validEnvironments = {
 
 var cfg = {
   env: validEnvironments[process.env.NODE_ENV || ''] || validEnvironments.local,
+  stylint: {
+    src: [
+      path.join(__dirname, '../app/client/**/*.styl')
+    ]
+  },
   eslint: {
     src: [
       path.join(__dirname, '../app/client/**/*.js'),

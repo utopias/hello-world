@@ -43,7 +43,10 @@
     "gulp-eslint": "^1",
     "gulp-load-plugins": "^1",
     "gulp-nodemon": "^2",
-    "gulp-sequence": "^0.4",
+    "gulp-sequence": "^0",
+    "gulp-stylint": "^3.0.0",
+    "gulp-util": "^3.0.7",
+    "lodash": "^3.10.1",
     "moment": "^2",
     "shelljs": "^0.5"
   }
