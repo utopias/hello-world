@@ -16,22 +16,8 @@ var validEnvironments = {
 
 var cfg = {
   env: validEnvironments[process.env.NODE_ENV || ''] || validEnvironments.local,
-  test: {
-    unit: {
-      src: [path.join(__dirname, '../test/unit/**/*.spec.js')],
-      options: {
-        reporter: 'spec'
-      }
-    },
-    integration: {
-      src: [path.join(__dirname, '../test/integration/**/*.spec.js')],
-      options: {
-        reporter: 'spec'
-      }
-    }
-  },
   nodemon: {
-    script: path.join(__dirname, '../app/app.js'),
+    script: path.join(__dirname, '../server/app.js'),
     ext: 'js',
     ignore: [
       path.join(__dirname, '../gulp/*.js')
