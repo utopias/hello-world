@@ -10,6 +10,7 @@
     "docker": "gulp git-info && node docker/dockerfile && npm run docker-build && npm run docker-restart",
     "docker-build": "docker build -t utopias/hello-world:0.0.1 -f ./Dockerfile .",
     "docker-restart": "docker-compose stop && docker-compose up -d",
+    "dev": "BUNYAN_LOGLEVEL=debug npm start | bunyan",
     "gulp": "gulp",
     "lint": "gulp lint",
     "start": "node $npm_package_main",
@@ -42,11 +43,14 @@
   },
   "dependencies": {
     "body-parser": "^1",
+    "bunyan": "^1",
+    "bunyan-loggly": "^0",
     "express": "^4",
     "jade": "^1",
     "lodash": "^3",
     "moment": "^2",
-    "morgan": "^1"
+    "morgan": "^1",
+    "nconf": "^0"
   },
   "devDependencies": {
     "eslint": "^1",

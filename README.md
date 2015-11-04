@@ -13,6 +13,6 @@
 1. Make sure you have ran `npm i`
 
 ### Dockerizing
-1. `npm run docker-build`
+1. `npm run docker`
 1. `open http://$(docker-machine ip <YOUR_DOCKER_MACHINE_NAME>):4001`
 1. You should see `Hello world!`
