@@ -7,6 +7,8 @@
   "main": "./app/server/app.js",
   "scripts": {
     "clean": "rm -rf node_modules/ dist/ coverage/ npm-debug.log .git.json",
+    "docker-build": "",
+    "docker-restart": "docker-compose stop && docker-compose up -d",
     "gulp": "gulp",
     "lint": "gulp lint",
     "start": "node $npm_package_main",
@@ -23,7 +25,7 @@
     "host": "0.0.0.0"
   },
   "engines": {
-    "node": ">=4.2"
+    "node": "^4.2"
   },
   "keywords": [
     "helloworld",
@@ -41,9 +43,12 @@
     "body-parser": "^1",
     "express": "^4",
     "jade": "^1",
+    "lodash": "^3",
+    "moment": "^2",
     "morgan": "^1"
   },
   "devDependencies": {
+    "chalk": "^1",
     "eslint": "^1",
     "gulp": "^3",
     "gulp-debug": "^2",
@@ -53,9 +58,9 @@
     "gulp-sequence": "^0",
     "gulp-stylint": "^3",
     "gulp-util": "^3",
-    "lodash": "^3",
-    "moment": "^2",
+    "node-dockerfile": "^0",
     "pre-commit": "^1",
+    "request": "^2",
     "shelljs": "^0"
   }
 }
