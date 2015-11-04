@@ -29,3 +29,8 @@ node_modules
 
 # Git info file
 .git.json
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
