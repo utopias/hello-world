@@ -6,8 +6,9 @@
   "preferGlobal": false,
   "main": "./app/server/app.js",
   "scripts": {
-    "clean": "rm -rf node_modules/ dist/ coverage/ npm-debug.log .git.json",
-    "docker-build": "",
+    "clean": "rm -rf node_modules/ dist/ coverage/ npm-debug.log .git.json DockerFile .dockerignore docker-compose.yml",
+    "docker": "gulp git-info && node docker/dockerfile && npm run docker-build && npm run docker-restart",
+    "docker-build": "docker build -t utopias/hello-world:0.0.1 -f ./Dockerfile .",
     "docker-restart": "docker-compose stop && docker-compose up -d",
     "gulp": "gulp",
     "lint": "gulp lint",
@@ -21,7 +22,7 @@
     ]
   },
   "config": {
-    "port": "80",
+    "port": "4001",
     "host": "0.0.0.0"
   },
   "engines": {
@@ -48,7 +49,6 @@
     "morgan": "^1"
   },
   "devDependencies": {
-    "chalk": "^1",
     "eslint": "^1",
     "gulp": "^3",
     "gulp-debug": "^2",
@@ -58,9 +58,11 @@
     "gulp-sequence": "^0",
     "gulp-stylint": "^3",
     "gulp-util": "^3",
+    "json2yaml": "^1",
     "node-dockerfile": "^0",
     "pre-commit": "^1",
     "request": "^2",
+    "semver": "^5.0.3",
     "shelljs": "^0"
   }
 }
