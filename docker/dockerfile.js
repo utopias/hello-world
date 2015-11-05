@@ -8,6 +8,7 @@ var request = require('request');
 var semver = require('semver');
 var yaml = require('json2yaml');
 
+var config = require(path.join(__dirname, '../app/server/helpers/config'));
 var packageJsonFileDest = path.join(__dirname, '../package.json');
 var dockerFileDest = path.join(__dirname, '../Dockerfile');
 var dockerComposeFileDest = path.join(__dirname, '../docker-compose.yml');
@@ -120,12 +121,11 @@ function writeDockerComposeFile(version, dockerBuildType, dockerImageTag, destPa
       image: dockerImageTag,
       'container_name': dockerContainerName,
       ports: [
-        packageJson.config.port + ':' + packageJson.config.port
+        config.get('PORT') + ':' + config.get('PORT')
       ],
       environment: [
-        'PORT=' + packageJson.config.port,
-        'HOST=' + packageJson.config.host,
-        'NPM_CONFIG_LOGLEVEL=error' // Only report problems
+        'PORT=' + config.get('PORT'),
+        'HOST=' + config.get('HOST')
       ],
       volumes: [
         './app:/src/app'
@@ -141,8 +141,8 @@ function writeDockerComposeFile(version, dockerBuildType, dockerImageTag, destPa
 }
 
 function writePackageJsonDockerScripts(packageJson, dockerImageTag, destPath) {
-  packageJson.scripts['docker-clean-image'] = 'docker images -q ' + dockerImageTag + ' | xargs docker rmi -f';
-  packageJson.scripts['docker-build'] = 'docker build -t ' + dockerImageTag + ' -f ./Dockerfile .';
+  packageJson.scripts['docker:clean:image'] = 'docker images -q ' + dockerImageTag + ' | xargs docker rmi -f';
+  packageJson.scripts['docker:build'] = 'docker build -t ' + dockerImageTag + ' -f ./Dockerfile .';
 
   fs.writeFileSync(destPath, JSON.stringify(packageJson, null, 2) + '\n');
 }
