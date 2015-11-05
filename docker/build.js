@@ -7,12 +7,18 @@ var moment = require('moment');
 var request = require('request');
 var semver = require('semver');
 var yaml = require('json2yaml');
+var _ = require('lodash');
+var replacestream = require('replacestream');
 
 var config = require(path.join(__dirname, '../app/server/helpers/config'));
 var packageJsonFileDest = path.join(__dirname, '../package.json');
 var dockerFileDest = path.join(__dirname, '../Dockerfile');
 var dockerComposeFileDest = path.join(__dirname, '../docker-compose.yml');
 var gitInfo = require('../.git.json');
+var dockerIgnoreReadPath = path.join(__dirname, './app/{{dockerBuildType}}/.dockerignore');
+var dockerIgnoreWritePath = path.join(__dirname, '../.dockerignore');
+var haproxyConfigTemplatePath = path.join(__dirname, './haproxy/haproxy.tpl');
+var haproxyConfigWritePath = path.join(__dirname, './haproxy/haproxy.cfg');
 
 var dfBuilder = require('node-dockerfile');
 var dockerFile = new dfBuilder();
@@ -25,7 +31,7 @@ var reqOpts = {
 
 request.get(reqOpts, function(err, res) {
   var semversions = res.body;
-  var version = process.env.DOCKER_FORCE_NODE_VERSION || semver.maxSatisfying(semversions.stableVersions, packageJson.engines.node);
+  var version = config.get('DOCKER_FORCE_NODE_VERSION') || semver.maxSatisfying(semversions.stableVersions, packageJson.engines.node);
   var validDockerBuildTypes = {
     local: 'local',
     release: 'release'
@@ -46,7 +52,6 @@ function getDockerImageTag(packageJson) {
 }
 
 function getDockerContainerName(tag) {
-  var dkcReg = /[a-z0-9][a-z0-9_.-]/gi;
   var inverse = /([^\w.-])/gi;
 
   return tag.replace(inverse, '_');
@@ -69,13 +74,11 @@ function writeDockerFile(version, dockerBuildType, validDockerBuildTypes, destPa
     .add('package.json', 'package.json')
     ;
 
-  if (dockerBuildType === validDockerBuildTypes.local) {
-    dockerFile
-      .newLine()
-      .comment('Run npm install')
-      .run('npm install -s')
-      ;
-  }
+  dockerFile
+    .newLine()
+    .comment('Run npm install')
+    .run('npm install -q --production')
+    ;
 
   dockerFile
     .newLine()
@@ -113,15 +116,15 @@ function writeDockerFile(version, dockerBuildType, validDockerBuildTypes, destPa
 }
 
 function writeDockerComposeFile(version, dockerBuildType, dockerImageTag, destPath) {
-  var dockerContainerName = getDockerContainerName(dockerImageTag);
-  var dockerIgnoreReadPath = path.join(__dirname, './' + dockerBuildType, './.dockerignore');
-  var dockerIgnoreWritePath = path.join(__dirname, '../.dockerignore');
-  var yamlCfg = {
-    web: {
+  var numberOfInstances = parseInt(config.get('DOCKER_APP_INSTANCES'), 0) || 1;
+  var yamlCfg = {};
+  var haproxyInstances = [];
+
+  _.times(numberOfInstances, function(n) {
+    yamlCfg['service_' + n] = {
       image: dockerImageTag,
-      'container_name': dockerContainerName,
-      ports: [
-        config.get('PORT') + ':' + config.get('PORT')
+      expose: [
+        config.get('PORT')
       ],
       environment: [
         'PORT=' + config.get('PORT'),
@@ -130,14 +133,40 @@ function writeDockerComposeFile(version, dockerBuildType, dockerImageTag, destPa
       volumes: [
         './app:/src/app'
       ]
-    }
+    };
+  });
+
+  yamlCfg.haproxy = {
+    image: 'haproxy',
+    links: _.keys(yamlCfg),
+    ports: [
+      '80:80',
+      '70:70'
+    ],
+    expose: [
+      '80',
+      '70'
+    ],
+    volumes: [
+      './docker/haproxy:/usr/local/etc/haproxy'
+    ]
   };
 
   fs
-    .createReadStream(dockerIgnoreReadPath)
+    .createReadStream(dockerIgnoreReadPath.replace('{{dockerBuildType}}', dockerBuildType))
     .pipe(fs.createWriteStream(dockerIgnoreWritePath));
 
   fs.writeFileSync(destPath, yaml.stringify(yamlCfg));
+
+  haproxyInstances = _.map(yamlCfg.haproxy.links, function(instance) {
+    return '  server ' + instance + ' ' + instance + ':' + config.get('PORT') + ' check';
+  });
+
+  fs
+    .createReadStream(haproxyConfigTemplatePath)
+    .pipe(replacestream('{{instances}}', haproxyInstances.join('\n')))
+    .pipe(fs.createWriteStream(haproxyConfigWritePath))
+    ;
 }
 
 function writePackageJsonDockerScripts(packageJson, dockerImageTag, destPath) {
