@@ -6,17 +6,17 @@ var config = require('./config');
 module.exports = function() {
   var streams = [];
 
-  if (config.get('BUNYAN_LOGLEVEL') !== 'OFF') {
+  if (config.get('BUNYAN_LOG_LEVEL') !== 'OFF') {
     streams.push({
       stream: process.stdout,
-      level: config.get('BUNYAN_LOGLEVEL')
+      level: config.get('BUNYAN_LOG_LEVEL')
     });
   }
 
   if (config.get('LOGGLY_TOKEN') && config.get('LOGGLY_SUBDOMAIN')) {
     streams.push({
       type: 'raw',
-      level: config.get('LOGGLY_LOGLEVEL'),
+      level: config.get('LOGGLY_LOG_LEVEL'),
       stream: new bunyan2Loggly({
         token: config.get('LOGGLY_TOKEN'),
         subdomain: config.get('LOGGLY_SUBDOMAIN')
