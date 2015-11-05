@@ -34,3 +34,4 @@ node_modules
 Dockerfile
 docker-compose.yml
 .dockerignore
+docker/haproxy/haproxy.cfg
