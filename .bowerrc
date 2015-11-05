@@ -1,0 +1,5 @@
+{
+  "directory": "./app/client/statics/",
+  "analytics": false,
+  "interactive": false
+}
