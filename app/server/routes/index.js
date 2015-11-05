@@ -2,12 +2,10 @@ var fs = require('fs');
 var path = require('path');
 var _ = require('lodash');
 
-var routesDir = './app/server/middleware';
+var routesDir = './app/server/routes';
 
 module.exports = function(app) {
-  var prioritizedMiddleware = [
-    './heartbeat'
-  ];
+  var prioritizedMiddleware = [];
 
   // Normalize to absolute paths
   var routes = _.map(prioritizedMiddleware, function(mw) {
