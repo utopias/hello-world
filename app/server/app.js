@@ -8,6 +8,8 @@ var server;
 var port = config.get('PORT');
 var host = config.get('HOST');
 
+require('./middleware')(app);
+
 app.get('/', function(req, res) {
   return res.send('Hello world!');
 });

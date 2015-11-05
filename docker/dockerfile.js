@@ -72,7 +72,7 @@ function writeDockerFile(version, dockerBuildType, validDockerBuildTypes, destPa
     dockerFile
       .newLine()
       .comment('Run npm install')
-      .run('npm install -q')
+      .run('npm install -s')
       ;
   }
 
@@ -86,7 +86,7 @@ function writeDockerFile(version, dockerBuildType, validDockerBuildTypes, destPa
     .cmd([
       'npm',
       'run',
-      'start'
+      dockerBuildType === validDockerBuildTypes.local ? 'dev' : 'start'
     ])
     ;
 
@@ -124,7 +124,8 @@ function writeDockerComposeFile(version, dockerBuildType, dockerImageTag, destPa
       ],
       environment: [
         'PORT=' + packageJson.config.port,
-        'HOST=' + packageJson.config.host
+        'HOST=' + packageJson.config.host,
+        'NPM_CONFIG_LOGLEVEL=error' // Only report problems
       ],
       volumes: [
         './app:/src/app'
@@ -140,7 +141,8 @@ function writeDockerComposeFile(version, dockerBuildType, dockerImageTag, destPa
 }
 
 function writePackageJsonDockerScripts(packageJson, dockerImageTag, destPath) {
+  packageJson.scripts['docker-clean-image'] = 'docker images -q ' + dockerImageTag + ' | xargs docker rmi -f';
   packageJson.scripts['docker-build'] = 'docker build -t ' + dockerImageTag + ' -f ./Dockerfile .';
 
-  fs.writeFileSync(destPath, JSON.stringify(packageJson, null, 2));
+  fs.writeFileSync(destPath, JSON.stringify(packageJson, null, 2) + '\n');
 }

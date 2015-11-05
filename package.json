@@ -7,10 +7,15 @@
   "main": "./app/server/app.js",
   "scripts": {
     "clean": "rm -rf node_modules/ dist/ coverage/ npm-debug.log .git.json DockerFile .dockerignore docker-compose.yml",
-    "docker": "gulp git-info && node docker/dockerfile && npm run docker-build && npm run docker-restart",
+    "dev": "BUNYAN_LOG_LEVEL=debug EXPRESS_LOG_FORMAT=dev npm start | bunyan",
+    "docker": "npm run docker-prep && npm run docker-rebuild && npm run docker-up",
     "docker-build": "docker build -t utopias/hello-world:0.0.1 -f ./Dockerfile .",
-    "docker-restart": "docker-compose stop && docker-compose up -d",
-    "dev": "BUNYAN_LOGLEVEL=debug npm start | bunyan",
+    "docker-clean-containers": "docker-compose stop && docker-compose rm -f",
+    "docker-clean-image": "docker images -q utopias/hello-world:0.0.1 | xargs docker rmi -f",
+    "docker-prep": "gulp git-info && node docker/dockerfile",
+    "docker-rebuild": "npm run docker-clean-containers && npm run docker-clean-image && npm run docker-build",
+    "docker-restart": "npm run docker-clean-containers && npm run docker-up",
+    "docker-up": "docker-compose up -d",
     "gulp": "gulp",
     "lint": "gulp lint",
     "start": "node $npm_package_main",
@@ -38,6 +43,7 @@
     "type": "git",
     "url": "https://github.com/utopias/hello-world"
   },
+  "readme": "README.md",
   "bugs": {
     "url": "https://github.com/utopias/hello-world/issues"
   },
