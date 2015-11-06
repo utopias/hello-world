@@ -24,7 +24,7 @@ var validDockerBuildTypes = {
   release: 'release'
 };
 var dockerBuildType = validDockerBuildTypes[(process.env.DOCKER_BUILD_TYPE || '').toLowerCase()] || validDockerBuildTypes.local;
-var serviceName = getDockerContainerName(dockerImageTag);
+var serviceName = getDockerServiceName(dockerImageTag);
 
 var dfBuilder = require('node-dockerfile');
 var dockerFile = new dfBuilder();
@@ -50,7 +50,7 @@ function getDockerImageTag(packageJson) {
   return imageName + ':' + packageJson.version;
 }
 
-function getDockerContainerName(tag) {
+function getDockerServiceName(tag) {
   var inverse = /([^\w.-])/gi;
 
   return tag.split('/')[0].replace(inverse, '_');
