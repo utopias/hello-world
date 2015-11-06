@@ -16,7 +16,7 @@
     "docker:prep": "gulp git-info && node docker/build",
     "docker:rebuild": "npm run docker:clean && npm run docker:build",
     "docker:restart": "npm run docker:clean:containers && npm run docker:prep && npm run docker:up",
-    "docker:up": "docker-compose up -d",
+    "docker:up": "docker-compose scale utopias=1 haproxy=1",
     "gulp": "gulp",
     "lint": "gulp lint",
     "start": "node $npm_package_main",
@@ -68,7 +68,6 @@
     "json2yaml": "^1",
     "node-dockerfile": "^0",
     "pre-commit": "^1",
-    "replacestream": "^4",
     "request": "^2",
     "semver": "^5",
     "shelljs": "^0"
