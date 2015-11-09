@@ -2,8 +2,7 @@
   "name": "hello-world",
   "description": "Simple app to say hello!",
   "authors": [
-    "Nate Clark <n8@n8io.com>",
-    "Jason Pero <jpero09@gmail.com>"
+    "First Last <first.last@example.com>"
   ],
   "version": "0.0.1",
   "main": "src/app/server/app.js",
