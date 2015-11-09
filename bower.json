@@ -1,10 +1,12 @@
 {
   "name": "hello-world",
   "description": "Simple app to say hello!",
-  "main": "src/app/server/app.js",
   "authors": [
-    "Example Example <example@example.com>"
+    "Nate Clark <n8@n8io.com>",
+    "Jason Pero <jpero09@gmail.com>"
   ],
+  "version": "0.0.1",
+  "main": "src/app/server/app.js",
   "license": "MIT",
   "keywords": [
     "helloworld",

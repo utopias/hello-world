@@ -1,7 +1,10 @@
 {
   "name": "hello-world",
   "description": "Simple app to say hello!",
-  "author": "Example Example <example@example.com>",
+  "authors": [
+    "Nate Clark <n8@n8io.com>",
+    "Jason Pero <jpero09@gmail.com>"
+  ],
   "version": "0.0.1",
   "private": false,
   "preferGlobal": false,
