@@ -1,22 +1,33 @@
 var fs = require('fs');
 var os = require('os');
 var path = require('path');
-var url = require('url');
+var url = require('url'); // Used to parse out the pathname of the repo to determine the proper image name
 
-var moment = require('moment');
-var request = require('request');
-var semver = require('semver');
-var yaml = require('json2yaml');
+var moment = require('moment'); // Used to timestamp the docker image within the metadata (LABELs)
+var request = require('request'); // Used to make an http request to get the all of stable node versions
+var semver = require('semver'); // Used to parse the max semversion based upon the range defined in the package.json
+var yaml = require('json2yaml'); // Used to write docker-compose.yml
 
 var config = require(path.join(__dirname, '../app/server/helpers/config'));
-var packageJsonFileDest = path.join(__dirname, '../package.json');
-var dockerFileDest = path.join(__dirname, '../Dockerfile');
 var dockerComposeFileDest = path.join(__dirname, '../docker-compose.yml');
+var dockerFileDest = path.join(__dirname, '../Dockerfile');
+var dockerIgnoreSrc = path.join(__dirname, './app/{{dockerBuildType}}/.dockerignore');
+var dockerIgnoreDest = path.join(__dirname, '../.dockerignore');
 var gitInfo = require('../.git.json');
+var packageJsonFileDest = path.join(__dirname, '../package.json');
+
+var packageJson = require(packageJsonFileDest);
+var numberOfInstances = parseInt(config.get('DOCKER_APP_INSTANCES'), 0) || 1; // Used to scale the docker containers properly with haproxy
+var dockerImageTag = getDockerImageTag(packageJson);
+var validDockerBuildTypes = {
+  local: 'local',
+  release: 'release'
+};
+var dockerBuildType = validDockerBuildTypes[(process.env.DOCKER_BUILD_TYPE || '').toLowerCase()] || validDockerBuildTypes.local;
+var serviceName = 'service';
 
 var dfBuilder = require('node-dockerfile');
 var dockerFile = new dfBuilder();
-var packageJson = require(packageJsonFileDest);
 
 var reqOpts = {
   uri: 'https://semver.io/node.json',
@@ -25,17 +36,11 @@ var reqOpts = {
 
 request.get(reqOpts, function(err, res) {
   var semversions = res.body;
-  var version = process.env.DOCKER_FORCE_NODE_VERSION || semver.maxSatisfying(semversions.stableVersions, packageJson.engines.node);
-  var validDockerBuildTypes = {
-    local: 'local',
-    release: 'release'
-  };
-  var dockerImageTag = getDockerImageTag(packageJson);
-  var dockerBuildType = validDockerBuildTypes[(process.env.DOCKER_BUILD_TYPE || '').toLowerCase()] || validDockerBuildTypes.local;
+  var version = config.get('DOCKER_FORCE_NODE_VERSION') || semver.maxSatisfying(semversions.stableVersions, packageJson.engines.node);
 
   writeDockerFile(version, dockerBuildType, validDockerBuildTypes, dockerFileDest);
-  writeDockerComposeFile(version, dockerBuildType, dockerImageTag, dockerComposeFileDest);
-  writePackageJsonDockerScripts(packageJson, dockerImageTag, packageJsonFileDest);
+  writeDockerComposeFile(version, dockerBuildType, dockerComposeFileDest);
+  writePackageJsonDockerScripts(packageJson, packageJsonFileDest);
 });
 
 function getDockerImageTag(packageJson) {
@@ -43,13 +48,6 @@ function getDockerImageTag(packageJson) {
   var imageName = urlObj.pathname.replace('/', '');
 
   return imageName + ':' + packageJson.version;
-}
-
-function getDockerContainerName(tag) {
-  var dkcReg = /[a-z0-9][a-z0-9_.-]/gi;
-  var inverse = /([^\w.-])/gi;
-
-  return tag.replace(inverse, '_');
 }
 
 function writeDockerFile(version, dockerBuildType, validDockerBuildTypes, destPath) {
@@ -69,13 +67,11 @@ function writeDockerFile(version, dockerBuildType, validDockerBuildTypes, destPa
     .add('package.json', 'package.json')
     ;
 
-  if (dockerBuildType === validDockerBuildTypes.local) {
-    dockerFile
-      .newLine()
-      .comment('Run npm install')
-      .run('npm install -s')
-      ;
-  }
+  dockerFile
+    .newLine()
+    .comment('Run npm install')
+    .run('npm install -q --production')
+    ;
 
   dockerFile
     .newLine()
@@ -112,37 +108,49 @@ function writeDockerFile(version, dockerBuildType, validDockerBuildTypes, destPa
     ;
 }
 
-function writeDockerComposeFile(version, dockerBuildType, dockerImageTag, destPath) {
-  var dockerContainerName = getDockerContainerName(dockerImageTag);
-  var dockerIgnoreReadPath = path.join(__dirname, './' + dockerBuildType, './.dockerignore');
-  var dockerIgnoreWritePath = path.join(__dirname, '../.dockerignore');
-  var yamlCfg = {
-    web: {
-      image: dockerImageTag,
-      'container_name': dockerContainerName,
-      ports: [
-        config.get('PORT') + ':' + config.get('PORT')
-      ],
-      environment: [
-        'PORT=' + config.get('PORT'),
-        'HOST=' + config.get('HOST')
-      ],
-      volumes: [
-        './app:/src/app'
-      ]
-    }
+function writeDockerComposeFile(version, dockerBuildType, destPath) {
+  var yamlCfg = {};
+
+  yamlCfg[serviceName] = {
+    image: dockerImageTag,
+    expose: [
+      config.get('PORT')
+    ],
+    environment: [
+      'PORT=' + config.get('PORT'),
+      'HOST=' + config.get('HOST')
+    ],
+    volumes: [
+      './app:/src/app'
+    ]
+  };
+
+  yamlCfg.haproxy = {
+    image: 'tutum/haproxy',
+    links: [
+      serviceName
+    ],
+    ports: [
+      '80:80',
+      '70:70'
+    ],
+    expose: [
+      '80',
+      '70'
+    ]
   };
 
   fs
-    .createReadStream(dockerIgnoreReadPath)
-    .pipe(fs.createWriteStream(dockerIgnoreWritePath));
+    .createReadStream(dockerIgnoreSrc.replace('{{dockerBuildType}}', dockerBuildType))
+    .pipe(fs.createWriteStream(dockerIgnoreDest));
 
   fs.writeFileSync(destPath, yaml.stringify(yamlCfg));
 }
 
-function writePackageJsonDockerScripts(packageJson, dockerImageTag, destPath) {
+function writePackageJsonDockerScripts(packageJson, destPath) {
   packageJson.scripts['docker:clean:image'] = 'docker images -q ' + dockerImageTag + ' | xargs docker rmi -f';
   packageJson.scripts['docker:build'] = 'docker build -t ' + dockerImageTag + ' -f ./Dockerfile .';
+  packageJson.scripts['docker:up'] = 'docker-compose scale ' + serviceName + '=' + numberOfInstances + ' haproxy=1';
 
   fs.writeFileSync(destPath, JSON.stringify(packageJson, null, 2) + '\n');
 }

@@ -6,16 +6,17 @@
   "preferGlobal": false,
   "main": "./app/server/app.js",
   "scripts": {
-    "clean": "rm -rf node_modules/ dist/ coverage/ npm-debug.log .git.json DockerFile .dockerignore docker-compose.yml",
+    "clean": "rm -rf node_modules/ dist/ coverage/ docker/haproxy/haproxy.cfg npm-debug.log .git.json DockerFile .dockerignore docker-compose.yml",
     "dev": "BUNYAN_LOG_LEVEL=debug EXPRESS_LOG_FORMAT=dev npm start | bunyan",
     "docker": "npm run docker:prep && npm run docker:rebuild && npm run docker:up",
     "docker:build": "docker build -t utopias/hello-world:0.0.1 -f ./Dockerfile .",
+    "docker:clean": "npm run docker:clean:containers && npm run docker:clean:image",
     "docker:clean:containers": "docker-compose stop && docker-compose rm -f",
     "docker:clean:image": "docker images -q utopias/hello-world:0.0.1 | xargs docker rmi -f",
-    "docker:prep": "gulp git-info && node docker/dockerfile",
-    "docker:rebuild": "npm run docker:clean:containers && npm run docker:clean:image && npm run docker:build",
-    "docker:restart": "npm run docker:clean:containers && npm run docker:up",
-    "docker:up": "docker-compose up -d",
+    "docker:prep": "gulp git-info && node docker/build",
+    "docker:rebuild": "npm run docker:clean && npm run docker:build",
+    "docker:restart": "npm run docker:clean:containers && npm run docker:prep && npm run docker:up",
+    "docker:up": "docker-compose scale service=1 haproxy=1",
     "gulp": "gulp",
     "lint": "gulp lint",
     "start": "node $npm_package_main",
@@ -68,7 +69,7 @@
     "node-dockerfile": "^0",
     "pre-commit": "^1",
     "request": "^2",
-    "semver": "^5.0.3",
+    "semver": "^5",
     "shelljs": "^0"
   }
 }
