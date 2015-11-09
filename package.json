@@ -1,22 +1,23 @@
 {
   "name": "hello-world",
   "description": "Simple app to say hello!",
+  "author": "Example Example <example@example.com>",
   "version": "0.0.1",
   "private": false,
   "preferGlobal": false,
-  "main": "./app/server/app.js",
+  "main": "src/app/server/app.js",
   "scripts": {
-    "clean": "rm -rf node_modules/ dist/ coverage/ docker/haproxy/haproxy.cfg npm-debug.log .git.json DockerFile .dockerignore docker-compose.yml",
+    "clean": "rm -rf node_modules/ dist/ coverage/ npm-debug.log .git.json DockerFile .dockerignore docker-compose.yml",
     "dev": "BUNYAN_LOG_LEVEL=debug EXPRESS_LOG_FORMAT=dev npm start | bunyan",
     "docker": "npm run docker:prep && npm run docker:rebuild && npm run docker:up",
     "docker:build": "docker build -t utopias/hello-world:0.0.1 -f ./Dockerfile .",
     "docker:clean": "npm run docker:clean:containers && npm run docker:clean:image",
     "docker:clean:containers": "docker-compose stop && docker-compose rm -f",
     "docker:clean:image": "docker images -q utopias/hello-world:0.0.1 | xargs docker rmi -f",
-    "docker:prep": "gulp git-info && node docker/build",
+    "docker:prep": "gulp git-info && node build/docker/build",
     "docker:rebuild": "npm run docker:clean && npm run docker:build",
     "docker:restart": "npm run docker:clean:containers && npm run docker:prep && npm run docker:up",
-    "docker:up": "docker-compose scale service=1 haproxy=1",
+    "docker:up": "docker-compose scale service=3 haproxy=1",
     "gulp": "gulp",
     "lint": "gulp lint",
     "start": "node $npm_package_main",
@@ -46,6 +47,7 @@
   },
   "dependencies": {
     "body-parser": "^1",
+    "bower": "^1.6.5",
     "bunyan": "^1",
     "bunyan-loggly": "^0",
     "express": "^4",
@@ -56,8 +58,12 @@
     "nconf": "^0"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6",
+    "del": "^2",
     "eslint": "^1",
+    "glob-all": "^3.0.1",
     "gulp": "^3",
+    "gulp-babel": "^6",
     "gulp-debug": "^2",
     "gulp-eslint": "^1",
     "gulp-load-plugins": "^1",
@@ -71,5 +77,11 @@
     "request": "^2",
     "semver": "^5",
     "shelljs": "^0"
-  }
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/utopias/hello-world/blob/develop/LICENSE"
+    }
+  ]
 }

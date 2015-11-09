@@ -1,0 +1,28 @@
+{
+  "name": "hello-world",
+  "description": "Simple app to say hello!",
+  "main": "src/app/server/app.js",
+  "authors": [
+    "Example Example <example@example.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "helloworld",
+    "NodeJs",
+    "ExpressJs"
+  ],
+  "homepage": "https://github.com/utopias/hello-world",
+  "moduleType": [
+    "amd"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./src/app/client/statics/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}
