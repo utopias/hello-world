@@ -4,7 +4,7 @@
   "authors": [
     "First Last <first.last@example.com>"
   ],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "preferGlobal": false,
   "main": "src/app/server/app.js",
