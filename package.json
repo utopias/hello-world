@@ -10,7 +10,7 @@
   "main": "src/app/server/app.js",
   "scripts": {
     "clean": "rm -rf node_modules/ dist/ coverage/  src/app/client/statics/bower_components/ npm-debug.log .git.json DockerFile .dockerignore docker-compose.yml",
-    "dev": "BUNYAN_LOG_LEVEL=debug EXPRESS_LOG_FORMAT=dev npm start | bunyan",
+    "dev": "BUNYAN_LOG_LEVEL=debug EXPRESS_LOG_FORMAT=dev gulp | bunyan",
     "docker": "npm run docker:prep && npm run docker:rebuild && npm run docker:up",
     "docker:build": "docker build -t utopias/hello-world:0.0.1 -f ./Dockerfile .",
     "docker:clean": "npm run docker:clean:containers && npm run docker:clean:image",

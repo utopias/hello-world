@@ -6,7 +6,8 @@ const routesDir = 'src/app/server/middleware';
 
 module.exports = function(app) {
   const prioritizedMiddleware = [
-    './heartbeat'
+    './heartbeat',
+    './logger'
   ];
 
   // Normalize to absolute paths

@@ -9,7 +9,7 @@ module.exports = function(gulp, plugins, cfg) {
     const monitor = plugins.nodemon(opts);
 
     // Required to handle bug when attempting to quit with Cmd + C
-    monitor.on('exit', function() {
+    monitor.on('quit', function() {
       process.exit();
     });
   }
