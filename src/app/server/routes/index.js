@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
-
-const routesDir = './app/server/routes';
+const projRoot = process.env.PWD;
+const routesRelativeDir = 'src/app/server/routes';
 
 module.exports = function(app) {
   const prioritizedMiddleware = [];
@@ -32,5 +32,5 @@ module.exports = function(app) {
 };
 
 function getRouteAbsolutePath(relativeToRoutesDirPath) {
-  return path.join(process.env.PWD, routesDir, relativeToRoutesDirPath);
+  return path.join(projRoot, routesRelativeDir, relativeToRoutesDirPath);
 }

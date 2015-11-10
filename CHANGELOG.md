@@ -1,5 +1,12 @@
 # changelog
 
+## v0.0.3
+
+* Added unit and self-integration tests
+* Added code coverage with Istanbul
+* Replaced pre-commit package with ghooks to support all git hooks
+* Added pre-push hook for running tests before pushing
+
 ## v0.0.2
 
 * Converted to ES2015 syntax

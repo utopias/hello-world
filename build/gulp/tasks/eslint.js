@@ -2,7 +2,9 @@ const path = require('path');
 const projRoot = process.env.PWD;
 
 module.exports = function(gulp, plugins, cfg) {
-  gulp.task('eslint', function() {
+  gulp.task('eslint', eslint);
+
+  function eslint() {
     const customGulpFormatter = require(path.join(projRoot, 'build/eslint/customGulpFormatter'));
 
     return gulp.src(cfg.eslint.src)
@@ -10,5 +12,5 @@ module.exports = function(gulp, plugins, cfg) {
       .pipe(plugins.eslint.format(customGulpFormatter))
       .pipe(plugins.eslint.failAfterError())
       ;
-  });
+  }
 };

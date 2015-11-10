@@ -4,52 +4,20 @@ const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
 const cfg = require('nconf');
-
 const projRoot = process.env.PWD;
+const envNormalizer = require(path.join(projRoot, 'src/app/server/helpers/environmentNormalizer'));
 const envKeys = require(path.join(projRoot, '.environment'));
 const commitFile = path.join(projRoot, '.git.json');
 const packageJson = path.join(projRoot, 'package.json');
-
-const LOCAL_KEY = 'local';
-const DEV_KEY = 'dev';
-const QA_KEY = 'qa';
-const PROD_KEY = 'prod';
-
-// TODO: This is duplicated in gulp config
-const validEnvironments = {
-  loc: LOCAL_KEY,
-  local: LOCAL_KEY,
-  ci: DEV_KEY,
-  dev: DEV_KEY,
-  development: DEV_KEY,
-  qa: QA_KEY,
-  prod: PROD_KEY,
-  production: PROD_KEY
-};
-
 const envSettings = parseEnvironmentVars(envKeys);
 
 cfg.use('memory');
 
 cfg.env(envSettings.env);
 
-if (fs.existsSync(packageJson)) {
-  cfg.set('pkgJson', JSON.parse(fs.readFileSync(packageJson, 'utf-8')));
-
-  if (!cfg.get('npm_package_version')) {
-    cfg.set('npm_package_version', cfg.get('pkgJson:version'));
-  }
-
-  if (!cfg.get('npm_package_name')) {
-    cfg.set('npm_package_name', cfg.get('pkgJson:name'));
-  }
-}
-
-if (fs.existsSync(commitFile)) {
-  cfg.set('git', JSON.parse(fs.readFileSync(commitFile, 'utf-8')));
-}
-
-cfg.set('NODE_ENV', validEnvironments[cfg.get('NODE_ENV')] || validEnvironments.prod);
+cfg.set('pkgJson', JSON.parse(fs.readFileSync(packageJson, 'utf-8')));
+cfg.set('git', JSON.parse(fs.readFileSync(commitFile, 'utf-8')));
+cfg.set('NODE_ENV', envNormalizer.normalize(cfg.get('NODE_ENV')));
 cfg.set('app:major', cfg.get('npm_package_version').split('.')[0]);
 cfg.set('app:minor', cfg.get('npm_package_version').split('.')[1]);
 cfg.set('app:revision', cfg.get('npm_package_version').split('.')[2]);

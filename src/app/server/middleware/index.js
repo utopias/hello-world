@@ -23,6 +23,7 @@ module.exports = function(app) {
     const filePath  = path.join(__dirname, file.split('.js').join(''));
 
     // If route isn't in the list already, lets add it to the list
+    /* istanbul ignore if */
     if (routes.indexOf(filePath) === -1) {
       routes.push(filePath);
     }

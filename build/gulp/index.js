@@ -6,5 +6,5 @@ module.exports = function(gulp, plugins) {
 
   // Expose custom multi-tasks
   gulp.task('lint', plugins.sequence(['stylint', 'eslint']));
-  gulp.task('default', plugins.sequence(['clean', 'lint'], 'nodemon'));
+  gulp.task('default', plugins.sequence(['clean', 'lint', 'git-info'], 'nodemon'));
 };
