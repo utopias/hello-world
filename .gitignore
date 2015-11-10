@@ -34,3 +34,6 @@ node_modules
 Dockerfile
 docker-compose.yml
 .dockerignore
+
+# Bower
+src/app/client/statics/bower_components

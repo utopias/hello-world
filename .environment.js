@@ -13,5 +13,5 @@ module.exports = [
   'LOGGLY_TOKEN', // Loggly token,
   'ADMIN_KEY', // Used in the config, debug, diagnostics routes
   'DOCKER_FORCE_NODE_VERSION', // In case you want to restrict the application to an explicit NodeJs version
-  {'DOCKER_APP_INSTANCES': 1}, // This determines the number of containers stood up in front of haproxy
+  {'DOCKER_SERVICE_INSTANCES': 1}, // This determines the number of containers stood up in front of haproxy lb
 ];
