@@ -14,5 +14,5 @@
 
 ### Dockerizing
 1. `npm run docker`
-1. `open http://$(docker-machine ip <YOUR_DOCKER_MACHINE_NAME>):4001`
+1. `open http://$(docker-machine ip <YOUR_DOCKER_MACHINE_NAME>)`
 1. You should see `Hello world!`
