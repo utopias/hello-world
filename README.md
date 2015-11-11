@@ -8,9 +8,14 @@
 * Builds
   * [Travis CI](https://travis-ci.org) [![Travis CI Build Status](https://img.shields.io/travis/utopias/hello-world/develop.svg)](https://travis-ci.org/utopias/hello-world)
   * [Circle CI](https://circleci.com) [![Circle CI Build Status](https://img.shields.io/circleci/project/utopias/hello-world/develop.svg)](https://circleci.com/gh/utopias/hello-world/tree/develop)
+* Dependencies
+  * [David DM](https://david-dm.org) [![NPM Dependencies](https://david-dm.org/utopias/hello-world/develop.svg)]
 * Code Coverage
   * [Coveralls](https://coveralls.io) [![Coverage Status](https://img.shields.io/coveralls/utopias/hello-world/develop.svg)](https://coveralls.io/github/utopias/hello-world?branch=develop)
   * [CodeCov](https://codecov.io) [![CodeCov Code Coverage](https://img.shields.io/codecov/c/github/utopias/hello-world/develop.svg)](https://codecov.io/github/utopias/hello-world?branch=develop)
+* Code Health
+  * [bitHound](https://bithound.io) [![bitHound Score](https://www.bithound.io/github/utopias/hello-world/badges/score.svg)](https://www.bithound.io/github/utopias/hello-world)
+
 
 ## Getting started
 1. `npm install`
