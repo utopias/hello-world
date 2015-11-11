@@ -28,8 +28,7 @@
     "start": "node $npm_package_main",
     "test": "gulp test",
     "test-integration": "gulp test-integration",
-    "test-unit": "gulp test-unit",
-    "ci:circle": "node build/circleci/build"
+    "test-unit": "gulp test-unit"
   },
   "config": {
     "ghooks": {
