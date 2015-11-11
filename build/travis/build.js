@@ -25,6 +25,9 @@ function writeYaml(nodeVersion) {
     'node_js': [
       nodeVersion
     ],
+    'after_success': [
+      'npm run coverage'
+    ],
     'after_script': [
       'cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
     ]
