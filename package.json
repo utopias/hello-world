@@ -30,7 +30,6 @@
     "gulp": "gulp",
     "lint": "gulp lint",
     "plato": "plato -r -d coverage/plato -t \"In-Depth Code Coverage for $npm_package_name\" src/**/*.js",
-    "postinstall": "npm run docker:prep && npm run ci",
     "start": "node $npm_package_main",
     "test": "gulp test",
     "test-integration": "gulp test-integration",
