@@ -26,10 +26,11 @@ function expressLogFormat(done) {
 
   process.env[envVar] = testLogFormat;
 
-  config = require(configRelativeFilePath);
   server = require(serverRelativePath);
 
   supertest(server);
+
+  config = require(configRelativeFilePath);
 
   expect(config.get(envVar)).to.equal(testLogFormat);
 

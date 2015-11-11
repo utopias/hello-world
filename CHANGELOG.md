@@ -3,6 +3,8 @@
 ## v0.0.4
 
 * Added dynamic build yaml configs for CircleCI and Travis
+* Added .nvmrc to help aid build systems in determining node version dependency
+* Added .bithoundrc for Bithound project health checks
 
 ## v0.0.3
 
