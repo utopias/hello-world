@@ -73,7 +73,8 @@
   },
   "devDependencies": {
     "chai": "^3",
-    "codecov.io": "^0.1.6",
+    "codecov.io": "^0",
+    "coveralls": "^2",
     "del": "^2",
     "eslint": "^1",
     "ghooks": "^0",
