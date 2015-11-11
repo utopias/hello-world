@@ -93,6 +93,7 @@
     "node-dockerfile": "^0",
     "semver": "^5",
     "shelljs": "^0",
+    "sort-json": "^1",
     "supertest": "^1"
   },
   "license": "MIT"

@@ -7,6 +7,7 @@ const moment = require('moment'); // Used to timestamp the docker image within t
 const request = require('request'); // Used to make an http request to get the all of stable node versions
 const semver = require('semver'); // Used to parse the max semversion based upon the range defined in the package.json
 const yaml = require('json2yaml'); // Used to write docker-compose.yml
+const sortJson = require('sort-json');
 
 const projRoot = process.env.PWD;
 const config = require(path.join(projRoot, 'src/app/server/helpers/config'));
@@ -158,6 +159,8 @@ function writePackageJsonDockerScripts(packageJson, destPath) {
   packageJson.scripts['docker:rebuild'] = 'npm run docker:clean && npm run docker:build';
   packageJson.scripts['docker:restart'] = 'npm run docker:clean:containers && npm run docker:prep && npm run docker:up';
   packageJson.scripts['docker:up'] = `docker-compose scale ${serviceName}=${numberOfInstances} haproxy=1`;
+
+  packageJson.scripts = sortJson(packageJson.scripts);
 
   fs.writeFileSync(destPath, `${JSON.stringify(packageJson, null, 2)}\n`);
 }
