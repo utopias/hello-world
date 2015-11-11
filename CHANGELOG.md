@@ -1,5 +1,9 @@
 # changelog
 
+## v0.0.4
+
+* Added dynamic build yaml configs for CircleCI and Travis
+
 ## v0.0.3
 
 * Added unit and self-integration tests
