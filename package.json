@@ -16,7 +16,6 @@
     "ci:nvm": "node build/nvm/build",
     "ci:travis": "node build/travis/build",
     "coverage": "gulp git-info && gulp coverage",
-    "coveralls": "codeclimate-test-reporter < coverage/lcov.info",
     "dev": "BUNYAN_LOG_LEVEL=debug EXPRESS_LOG_FORMAT=dev gulp | bunyan",
     "docker": "npm run docker:prep && npm run docker:rebuild && npm run docker:up",
     "docker:build": "docker build -t utopias/hello-world:0.0.3 -f ./Dockerfile .",
@@ -74,6 +73,7 @@
   },
   "devDependencies": {
     "chai": "^3",
+    "codecov.io": "^0.1.6",
     "del": "^2",
     "eslint": "^1",
     "ghooks": "^0",

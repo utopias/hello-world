@@ -22,7 +22,12 @@ request.get(reqOpts, function(err, res) {
 function writeYaml(nodeVersion) {
   const yamlCfg = {
     language: 'node_js',
-    'node_js': [nodeVersion]
+    'node_js': [
+      nodeVersion
+    ],
+    'after_script': [
+      'cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
+    ]
   };
 
   fs.writeFileSync(destPath, yaml.stringify(yamlCfg));
