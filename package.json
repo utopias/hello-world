@@ -4,27 +4,27 @@
   "authors": [
     "First Last <first.last@example.com>"
   ],
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": false,
   "preferGlobal": false,
   "main": "src/app/server/app.js",
   "scripts": {
-    "clean": "rm -rf node_modules/ dist/ coverage/ src/app/client/statics/bower_components/ npm-debug.log .git.json DockerFile .dockerignore docker-compose.yml",
+    "build:bithound": "node build/bithound/build",
+    "build:bower": "bower init && node build/bower/build",
+    "build:circleci": "node build/circleci/build",
+    "build:docker": "node build/docker/build",
+    "build:nvm": "node build/nvm/build",
+    "build:readme": "node build/readme/build",
+    "build:stylint": "node build/stylint/build",
+    "build:travisci": "node build/travisci/build",
+    "clean": "rm -rf node_modules/ dist/ coverage/ src/app/client/statics/bower_components/ npm-debug.log .git.json DockerFile .dockerignore docker-compose.yml circle.yml .travis.yml .nvmrc",
     "coverage": "gulp git-info && gulp coverage",
-    "coveralls": "codeclimate-test-reporter < coverage/lcov.info",
     "dev": "BUNYAN_LOG_LEVEL=debug EXPRESS_LOG_FORMAT=dev gulp | bunyan",
-    "docker": "npm run docker:prep && npm run docker:rebuild && npm run docker:up",
-    "docker:build": "docker build -t utopias/hello-world:0.0.2 -f ./Dockerfile .",
-    "docker:clean": "npm run docker:clean:containers && npm run docker:clean:image",
-    "docker:clean:containers": "docker-compose stop && docker-compose rm -f",
-    "docker:clean:image": "docker images -q utopias/hello-world:0.0.2 | xargs docker rmi -f",
-    "docker:prep": "gulp git-info && node build/docker/build",
-    "docker:rebuild": "npm run docker:clean && npm run docker:build",
-    "docker:restart": "npm run docker:clean:containers && npm run docker:prep && npm run docker:up",
-    "docker:up": "docker-compose scale service=1 haproxy=1",
     "gulp": "gulp",
     "lint": "gulp lint",
-    "plato": "plato -r -d coverage/plato -t \"In-Depth Code Coverage for $npm_package_name\" src/**/*.js",
+    "postinstall": "gulp git-info",
+    "postversion": "git push && git push --tags",
+    "preversion": "npm run lint && npm run test",
     "start": "node $npm_package_main",
     "test": "gulp test",
     "test-integration": "gulp test-integration",
@@ -58,16 +58,19 @@
   "dependencies": {
     "body-parser": "^1",
     "bunyan": "^1",
-    "bunyan-loggly": "^0",
     "express": "^4",
     "jade": "^1",
     "lodash": "^3",
     "moment": "^2",
     "morgan": "^1",
-    "nconf": "^0"
+    "nconf": "^0",
+    "request": "^2"
   },
   "devDependencies": {
+    "bower": "^1",
     "chai": "^3",
+    "codecov.io": "^0",
+    "coveralls": "^2",
     "del": "^2",
     "eslint": "^1",
     "ghooks": "^0",
@@ -88,16 +91,10 @@
     "json2yaml": "^1",
     "mocha": "^2",
     "node-dockerfile": "^0",
-    "plato": "^1",
-    "request": "^2",
     "semver": "^5",
     "shelljs": "^0",
+    "sort-json": "^1",
     "supertest": "^1"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/utopias/hello-world/blob/develop/LICENSE"
-    }
-  ]
+  "license": "MIT"
 }

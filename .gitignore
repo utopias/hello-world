@@ -30,10 +30,10 @@ node_modules
 # Git info file
 .git.json
 
-# Docker
+# Build
 Dockerfile
 docker-compose.yml
-.dockerignore
+./.dockerignore
 
 # Bower
 src/app/client/statics/bower_components

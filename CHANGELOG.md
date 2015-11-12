@@ -1,5 +1,14 @@
 # changelog
 
+## v0.0.4
+
+* Added dynamic build yaml configs for CircleCI and Travis
+* Added .nvmrc to help aid build systems in determining node version dependency
+* Added .bithoundrc for Bithound project health checks
+* Added specific builds for each add-on
+* Added bump version preversion and postversion scripts
+* Added dem badges for CI and CC
+
 ## v0.0.3
 
 * Added unit and self-integration tests

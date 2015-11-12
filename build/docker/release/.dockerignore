@@ -1,0 +1,38 @@
+## Release .dockerignore ##
+
+# Node.js
+test
+tests
+coverage
+npm-debug.log
+
+# git
+.git
+.gitignore
+
+# Gulp
+gulp
+gulpfile.js
+
+# docker
+docker
+docker-compose.yml
+
+# dot files
+.bowerrc
+.editorconfig
+.eslintrc
+.git
+.gitignore
+.stylintrc
+
+# build stuffs
+build
+
+# misc
+*.md
+*.log
+.DS_Store
+LICENSE
+logs
+VERSION
