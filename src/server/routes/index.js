@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
 const projRoot = process.env.PWD;
-const routesRelativeDir = 'src/app/server/routes';
+const routesRelativeDir = 'src/server/routes';
 
 module.exports = function(app) {
   const prioritizedMiddleware = [];

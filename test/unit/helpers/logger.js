@@ -4,8 +4,8 @@ const path = require('path');
 const expect = require('chai').expect;
 const supertest = require('supertest');
 const projRoot = process.env.PWD;
-const configRelativeFilePath = path.join(projRoot, 'src/app/server/helpers/config');
-const serverRelativePath = path.join(projRoot, 'src/app/server/app');
+const configRelativeFilePath = path.join(projRoot, 'src/server/helpers/config');
+const serverRelativePath = path.join(projRoot, 'src/server/app');
 
 module.exports = {
   bunyan: bunyan,

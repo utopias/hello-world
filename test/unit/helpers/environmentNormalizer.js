@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const path = require('path');
 const projRoot = process.env.PWD;
-const environmentNormalizer = require(path.join(projRoot, 'src/app/server/helpers/environmentNormalizer'));
+const environmentNormalizer = require(path.join(projRoot, 'src/server/helpers/environmentNormalizer'));
 
 module.exports = {
   loc: loc,
