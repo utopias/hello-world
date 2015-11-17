@@ -10,7 +10,7 @@ const yaml = require('json2yaml'); // Used to write docker-compose.yml
 const sortJson = require('sort-json');
 
 const projRoot = process.env.PWD;
-const config = require(path.join(projRoot, 'src/app/server/helpers/config'));
+const config = require(path.join(projRoot, 'src/server/helpers/config'));
 const dockerComposeFileDest = path.join(projRoot, 'docker-compose.yml');
 const dockerFileDest = path.join(projRoot, 'Dockerfile');
 const dockerIgnoreSrc = path.join(__dirname, '{{dockerBuildType}}/.dockerignore');

@@ -6,7 +6,7 @@ const srcDir = path.join(projRoot, 'src');
 const testDir = path.join(projRoot, 'test');
 const distDir = path.join(projRoot, 'dist');
 const packageJson = require(path.join(projRoot, 'package.json'));
-const envNormalizer = require(path.join(projRoot, 'src/app/server/helpers/environmentNormalizer'));
+const envNormalizer = require(path.join(projRoot, 'src/server/helpers/environmentNormalizer'));
 const cfg = {
   env: envNormalizer.normalize(process.env.NODE_ENV || 'local'),
   stylint: {

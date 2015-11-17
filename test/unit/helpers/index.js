@@ -22,7 +22,7 @@ module.exports = function() {
 
   describe('logger runtime config', function() {
     beforeEach(function(done) {
-      const configRelativeFilePath = path.join(projRoot, 'src/app/server/helpers/config');
+      const configRelativeFilePath = path.join(projRoot, 'src/server/helpers/config');
       const disabledLogLevel = 'OFF';
       const disabledLogFormat = 'OFF';
 

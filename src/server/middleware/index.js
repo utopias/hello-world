@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
 
-const routesDir = 'src/app/server/middleware';
+const routesDir = 'src/server/middleware';
 
 module.exports = function(app) {
   const prioritizedMiddleware = [

@@ -2,8 +2,8 @@ const path = require('path');
 const projRoot = process.env.PWD;
 const rootSpec = require('./root');
 const heartbeatSpec = require('./heartbeat');
-const configRelativeFilePath = path.join(projRoot, 'src/app/server/helpers/config');
-const serverRelativePath = path.join(projRoot, 'src/app/server/app');
+const configRelativeFilePath = path.join(projRoot, 'src/server/helpers/config');
+const serverRelativePath = path.join(projRoot, 'src/server/app');
 
 module.exports = function() {
   describe('root.get()', function() {

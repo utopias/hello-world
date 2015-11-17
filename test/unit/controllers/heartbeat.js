@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const path = require('path');
 const projRoot = process.env.PWD;
-const controller = require(path.join(projRoot, 'src/app/server/controllers/heartbeat'));
+const controller = require(path.join(projRoot, 'src/server/controllers/heartbeat'));
 
 module.exports = {
   get: get

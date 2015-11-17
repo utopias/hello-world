@@ -4,7 +4,7 @@ const request = require('request');
 const semver = require('semver');
 const projRoot = process.env.PWD;
 const packageJson = require(path.join(projRoot, 'package.json'));
-const config = require(path.join(projRoot, 'src/app/server/helpers/config'));
+const config = require(path.join(projRoot, 'src/server/helpers/config'));
 const destPath = path.join(projRoot, '.nvmrc');
 const reqOpts = {
   uri: 'https://semver.io/node.json',

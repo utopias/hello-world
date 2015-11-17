@@ -36,4 +36,4 @@ docker-compose.yml
 ./.dockerignore
 
 # Bower
-src/app/client/statics/bower_components
+src/client/statics/bower_components

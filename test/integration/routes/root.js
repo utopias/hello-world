@@ -12,7 +12,7 @@ module.exports = {
 };
 
 function get(done) {
-  const server = require(path.join(projRoot, 'src/app/server/app'));
+  const server = require(path.join(projRoot, 'src/server/app'));
 
   supertest(server)
     .get(uris.root)
