@@ -26,6 +26,14 @@ function writeCircleCiYaml(nodeVersion) {
       node: {
         version: nodeVersion
       }
+    },
+    deployment: {
+      develop: {
+        branch: 'feature/circle-ci-heroku-deploy',
+        heroku: {
+          appname: 'utopias-hello-world-dev'
+        }
+      }
     }
   };
 
