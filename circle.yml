@@ -1,4 +1,5 @@
----
-  machine: 
-    node: 
-      version: "4.2.2"
+deployment:
+  staging:
+    branch: feature/circle-ci-heroku-deploy
+    heroku:
+      appname: utopias-hello-world-dev
