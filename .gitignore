@@ -33,7 +33,7 @@ node_modules
 # Build
 Dockerfile
 docker-compose.yml
-./.dockerignore
+.dockerignore
 
 # Bower
 src/client/statics/bower_components
