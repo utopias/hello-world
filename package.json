@@ -1,9 +1,7 @@
 {
   "name": "hello-world",
   "description": "Simple app to say hello!",
-  "author": [
-    "First Last <first.last@example.com>"
-  ],
+  "author": "First Last <first.last@example.com>",
   "version": "0.0.4",
   "private": false,
   "preferGlobal": false,
