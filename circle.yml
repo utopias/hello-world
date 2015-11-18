@@ -1,9 +1,9 @@
 ---
-  machine: 
-    node: 
+  machine:
+    node:
       version: "4.2.2"
-  deployment: 
-    develop: 
-      branch: "feature/circle-ci-heroku-deploy"
-      heroku: 
+  deployment:
+    develop:
+      branch: "develop"
+      heroku:
         appname: "utopias-hello-world-dev"
