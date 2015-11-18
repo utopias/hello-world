@@ -1,16 +1,14 @@
 {
   "name": "hello-world",
   "description": "Simple app to say hello!",
-  "authors": [
-    "First Last <first.last@example.com>"
-  ],
+  "author": "First Last <first.last@example.com>",
   "version": "0.0.4",
   "private": false,
   "preferGlobal": false,
   "main": "src/server/app.js",
   "scripts": {
     "build:bithound": "node build/bithound/build",
-    "build:bower": "bower init && node build/bower/build",
+    "build:bower": "bower init --config.interactive=true && node build/bower/build",
     "build:circleci": "node build/circleci/build",
     "build:docker": "node build/docker/build",
     "build:nvm": "node build/nvm/build",
