@@ -11,6 +11,7 @@
   * [Codeship](https://codeship.com) [![Codeship CI Build Status](https://img.shields.io/codeship/b4e0cfb0-6f89-0133-5997-368ef2487360/develop.svg)](https://codeship.com/projects/116268)
 * Dependencies
   * [David DM](https://david-dm.org) ![NPM Dependencies](https://david-dm.org/utopias/hello-world/develop.svg)
+  * [bitHound](https://bithound.io) [![bitHound Dependencies](https://www.bithound.io/github/utopias/hello-world/badges/dependencies.svg)](https://www.bithound.io/github/utopias/hello-world/develop/dependencies/npm)
 * Code Coverage
   * [Coveralls](https://coveralls.io) [![Coverage Status](https://img.shields.io/coveralls/utopias/hello-world/develop.svg)](https://coveralls.io/github/utopias/hello-world?branch=develop)
   * [CodeCov](https://codecov.io) [![CodeCov Code Coverage](https://img.shields.io/codecov/c/github/utopias/hello-world/develop.svg)](https://codecov.io/github/utopias/hello-world?branch=develop)

@@ -66,6 +66,7 @@
   "devDependencies": {
     "bower": "^1",
     "chai": "^3",
+    "chalk": "^1",
     "codecov.io": "^0",
     "coveralls": "^2",
     "del": "^2",
@@ -84,6 +85,7 @@
     "gulp-stylint": "^3",
     "gulp-util": "^3",
     "http-status": "^0",
+    "inquirer": "^0",
     "istanbul": "^0",
     "json2yaml": "^1",
     "mocha": "^2",
@@ -91,7 +93,8 @@
     "semver": "^5",
     "shelljs": "^0",
     "sort-json": "^1",
-    "supertest": "^1"
+    "supertest": "^1",
+    "underscore.string": "^3"
   },
   "license": "MIT"
 }
