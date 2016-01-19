@@ -1,0 +1,175 @@
+[
+  {
+    "version": "0.0.4",
+    "changes": [
+      {
+        "description": "Added easy command line Pull Request generation",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": []
+      },
+      {
+        "description": "Added dynamic CHANGELOG.md generation",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": []
+      },
+      {
+        "description": "Added dynamic build yaml configs for CircleCI and Travis",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": []
+      },
+      {
+        "description": "Added .nvmrc to help aid build systems in determining node version dependency",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": []
+      },
+      {
+        "description": "Added .bithoundrc for Bithound project health checks",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": []
+      },
+      {
+        "description": "Added specific builds for each add-on",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": []
+      },
+      {
+        "description": "Added bump version preversion and postversion scripts",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": []
+      },
+      {
+        "description": "Added dem badges for CI and CC",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": []
+      }
+    ]
+  },
+  {
+    "version": "0.0.3",
+    "changes": [
+      {
+        "description": "Added unit and self-integration tests",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": []
+      },
+      {
+        "description": "Added code coverage with Istanbul",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": [
+          "12"
+        ]
+      },
+      {
+        "description": "Replaced pre-commit package with ghooks to support all git hooks",
+        "labels": [
+          "Tech Debt"
+        ],
+        "issueIds": [
+          "25"
+        ]
+      },
+      {
+        "description": "Added pre-push hook for running tests before pushing",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": []
+      }
+    ]
+  },
+  {
+    "version": "0.0.2",
+    "changes": [
+      {
+        "description": "Converted to ES2015 syntax",
+        "labels": [
+          "Tech Debt"
+        ],
+        "issueIds": []
+      },
+      {
+        "description": "Added prioritized routing order",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": []
+      },
+      {
+        "description": "Added heartbeat route",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": []
+      },
+      {
+        "description": "Added linting + ES2015 rules",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": [
+          "4"
+        ]
+      },
+      {
+        "description": "Added bower setup",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": []
+      },
+      {
+        "description": "Added docker setup",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": [
+          "9"
+        ]
+      }
+    ]
+  },
+  {
+    "version": "0.0.1",
+    "changes": [
+      {
+        "description": "Added basic application structure",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": []
+      },
+      {
+        "description": "Added gulp",
+        "labels": [
+          "Feature"
+        ],
+        "issueIds": []
+      },
+      {
+        "description": "Initial commit",
+        "labels": [],
+        "issueIds": []
+      }
+    ]
+  }
+]
