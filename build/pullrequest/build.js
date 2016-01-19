@@ -13,8 +13,18 @@ const issueNoReg = /\/(\d+)-(.*)/i;
 const matches = currentBranchName.match(issueNoReg) || [];
 const defaultIssueNo = matches.length > 1 ? matches[1] : null;
 const questions = [];
+const userTokenFilename = '.github';
+const githubTokenPath = path.join(os.homedir(), userTokenFilename);
+const userToken = getUserToken();
 
 _.str = require('underscore.string');
+
+if (!userToken) {
+  console.log(chalk.red(`Auth token file at "~/${userTokenFilename}" is required to create pull requests.`)); // eslint-disable-line no-console
+  process.exit(1);
+
+  return;
+}
 
 // Split logic on Issue No
 questions.push({
@@ -83,10 +93,10 @@ questions.push({
     const messages = _
       .chain(gitMessagesOutput)
       .filter(function(line) {
-        return !!line;
+        return !!line.trim();
       })
       .map(function(line) {
-        return line;
+        return line.trim();
       })
       .value();
 
@@ -161,7 +171,7 @@ function onQuestionsEntered(answers) {
     return;
   }
 
-  createPullRequest(answers, getUserToken());
+  createPullRequest(answers, userToken);
 }
 
 function getDataFromAnswers(answers) {
@@ -219,13 +229,11 @@ function getPullRequestBody(answers) {
 }
 
 function getUserToken() {
-  const prTokenPath = path.join(os.homedir(), '.pull-request');
-
-  if (!fs.existsSync(prTokenPath)) {
+  if (!fs.existsSync(githubTokenPath)) {
     return null;
   }
 
-  return fs.readFileSync(prTokenPath, 'utf-8').toString();
+  return fs.readFileSync(githubTokenPath, 'utf-8').toString();
 }
 
 function createPullRequest(answers, token) {
@@ -246,20 +254,13 @@ function createPullRequest(answers, token) {
     body: data
   };
 
-  if (!token) {
-    console.log(chalk.red('Auth token file at "~/.pull-request" is required to create pull requests.')); // eslint-disable-line no-console
-    process.exit(1);
-
-    return;
-  }
-
   request(reqOpts, function(err, results) {
     if (err) {
       throw err;
     }
     else if (results && results.statusCode !== 201) {
       return console.log( // eslint-disable-line no-console
-        chalk.red(`There was a problem creating your pull request:\n${JSON.stringify(results.body, null, 2)}`)
+        chalk.red(`There was a problem creating your pull request in ${repo}:\n${JSON.stringify(results.body, null, 2)}`)
       );
     }
 
