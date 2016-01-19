@@ -3,9 +3,9 @@
 const program = require('commander');
 
 program
-  .option('-m, --message', '< commit message >')
+  .command('-m, --message', '< commit message >')
   .parse(process.argv);
 
 console.log(JSON.stringify(program, null, 2)); // eslint-disable-line
 
-return 1;
+process.exit(1);
