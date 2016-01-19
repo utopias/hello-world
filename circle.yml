@@ -1,9 +1,9 @@
 ---
-  machine:
-    node:
-      version: "4.2.2"
-  deployment:
-    develop:
+  machine: 
+    node: 
+      version: "5.4.0"
+  deployment: 
+    develop: 
       branch: "develop"
-      heroku:
+      heroku: 
         appname: "utopias-hello-world-dev"
