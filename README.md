@@ -4,7 +4,7 @@
 * Tech Stack
   * [StackShare](https://stackshare.io) [![Stack Share](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](http://stackshare.io/n8io/utopias)
 * Requirements
-  * [NodeJs](https://nodejs.org) ![NodeJs Version](http://img.shields.io/badge/node-^4.2-blue.svg)
+  * [NodeJs](https://nodejs.org) ![NodeJs Version](http://img.shields.io/badge/node-^5-blue.svg)
 * Builds
   * [Travis CI](https://travis-ci.org) [![Travis CI Build Status](https://img.shields.io/travis/utopias/hello-world/develop.svg)](https://travis-ci.org/utopias/hello-world)
   * [Circle CI](https://circleci.com) [![Circle CI Build Status](https://img.shields.io/circleci/project/utopias/hello-world/develop.svg)](https://circleci.com/gh/utopias/hello-world/tree/develop)
