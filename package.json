@@ -40,7 +40,8 @@
   "config": {
     "ghooks": {
       "pre-commit": "npm run lint",
-      "pre-push": "npm run test"
+      "pre-push": "npm run test",
+      "commit-msg": "./build/commitValidation/validate"
     }
   },
   "engines": {
