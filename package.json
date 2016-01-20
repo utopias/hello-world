@@ -41,7 +41,8 @@
     "ghooks": {
       "pre-commit": "npm run lint",
       "pre-push": "npm run test",
-      "prepare-commit-msg": "./build/commitValidation/validate"
+      "prepare-commit-msg": "./build/commitValidation/validate.js",
+      "prepare-commit-msg": ""
     }
   },
   "engines": {
@@ -76,9 +77,10 @@
   "devDependencies": {
     "bower": "^1",
     "chai": "^3",
-    "chalk": "^1",
+    "chalk": "^1.1.1",
     "codecov.io": "^0",
     "coveralls": "^2",
+    "cwd": "^0.9.1",
     "del": "^2",
     "eslint": "^1",
     "ghooks": "^1",
